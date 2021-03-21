@@ -35,7 +35,7 @@ namespace ncu_clinicalbot_akko.Module
                 
                 IMessageBase atTarget = new AtMessage(e.Sender.Id);
                 await session.SendGroupMessageAsync(e.Sender.Group.Id, atTarget, plain);
-            }else if (str.Contains("查答案"))
+            }else if (str.Contains("查常规答案"))
             {
                 // 空格分割处理
                 int blank = str.Split(' ').Length - 1;
@@ -65,6 +65,15 @@ namespace ncu_clinicalbot_akko.Module
                 
                 IMessageBase atTarget = new AtMessage(e.Sender.Id);
                 await session.SendGroupMessageAsync(e.Sender.Group.Id, atTarget, plain); 
+            }else if (str.Equals("查题数常规"))
+            {
+                MedicalQuestionBasicExtension m = new MedicalQuestionBasicExtension();
+                IMessageBase plain = new PlainMessage("检索可能出现错误");
+                string message = m.GetMedicalQuestionNumber();
+                plain = new PlainMessage(message);
+                
+                IMessageBase atTarget = new AtMessage(e.Sender.Id);
+                await session.SendGroupMessageAsync(e.Sender.Group.Id, atTarget, plain);
             }
             
             return false; // 消息阻隔
