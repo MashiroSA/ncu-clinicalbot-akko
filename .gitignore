@@ -353,5 +353,3 @@ MigrationBackup/
 ./bin
 ./obj
 
-# idea
-.idea
