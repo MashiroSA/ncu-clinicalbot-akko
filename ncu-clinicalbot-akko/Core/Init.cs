@@ -92,10 +92,11 @@ namespace ncu_clinicalbot_akko.Core
 
                         list = "可用指令如下：（加号代表空格）\n" +
                                "- 随机常规题:获取随机常规医学题\n" +
-                               "- 查答案+id:查询常规题目库中指定id的答案\n" +
-                               "- 查常规题+id:查询指定id的题目",
+                               "- 查常规答案+id:查询常规题目库中指定id的答案\n" +
+                               "- 查常规题+id:查询指定id的题目\n" +
+                               "- 查题数常规:查询现有数据库下的题目数量",
                         
-                        info = "Project Alice " +
+                        info = "Project MedicalBot-Akko " +
                         "- 开源的屑QQBOT\n" +
                         "- 使用项目:Mirai、MiraiCS、MiraiHttp\n" +
                         "- 开发者:MashiroSA",
@@ -127,7 +128,7 @@ namespace ncu_clinicalbot_akko.Core
                     sqliteConn.Open();
                     SQLiteCommand cmd = new SQLiteCommand();
                     cmd.Connection = sqliteConn;
-                    cmd.CommandText = "CREATE TABLE " + "QA" +
+                    cmd.CommandText = "CREATE TABLE " + "Basic" +
                                       "(ID int, Question varchar, A varchar, B varchar, C varchar, D varchar, Answer varchar)";
                     cmd.ExecuteNonQuery();
                 }
