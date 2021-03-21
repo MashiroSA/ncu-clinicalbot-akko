@@ -352,3 +352,6 @@ MigrationBackup/
 # VS2019 output files folder
 ./bin
 ./obj
+
+# idea
+.idea
