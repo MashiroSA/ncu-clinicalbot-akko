@@ -353,3 +353,5 @@ MigrationBackup/
 ./bin
 ./obj
 
+# JetbBrains Rider config ignore
+.idea
