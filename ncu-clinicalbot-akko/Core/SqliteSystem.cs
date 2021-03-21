@@ -44,7 +44,7 @@ namespace ncu_clinicalbot_akko.Core
         }
 
         /// <summary>
-        /// 创建表
+        /// 创建一个模块化的数据表
         /// </summary>
         /// <param name="dbPath">指定数据库文件</param>
         /// <param name="tableName">表名称</param>

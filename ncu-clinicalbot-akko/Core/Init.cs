@@ -90,11 +90,15 @@ namespace ncu_clinicalbot_akko.Core
                         ".list：查看可用指令\n" +
                         ".info：查看项目详情",
 
-                        list = "可用指令如下： ",
+                        list = "可用指令如下：（加号代表空格）\n" +
+                               "- 随机常规题:获取随机常规医学题\n" +
+                               "- 查答案+id:查询常规题目库中指定id的答案\n" +
+                               "- 查常规题+id:查询指定id的题目",
+                        
                         info = "Project Alice " +
-                        "- 一个多人协作写的屑QQBOT\n" +
+                        "- 开源的屑QQBOT\n" +
                         "- 使用项目:Mirai、MiraiCS、MiraiHttp\n" +
-                        "- 开发团队:https://github.com/MeowCatZ",
+                        "- 开发者:MashiroSA",
                     }
                 };
                 var serializer = new SerializerBuilder().WithNamingConvention(CamelCaseNamingConvention.Instance).Build();
@@ -112,19 +116,25 @@ namespace ncu_clinicalbot_akko.Core
         {
             string dbPath = AppDomain.CurrentDomain.BaseDirectory + @"/db/";
             string dbQAFile = dbPath + @"QA.db";
-            SqliteSystem.NewDbFile(dbQAFile);
-            //SqliteSystem.NewTable(dbQAFile, "QA");
-            SQLiteConnection sqliteConn = new SQLiteConnection("data source=" + dbQAFile);
-            if (sqliteConn.State != System.Data.ConnectionState.Open)
+
+            if (false == System.IO.File.Exists(dbQAFile)) // 初始化鉴别
             {
-                sqliteConn.Open();
-                SQLiteCommand cmd = new SQLiteCommand();
-                cmd.Connection = sqliteConn;
-                cmd.CommandText = "CREATE TABLE " + "QA" + "(ID int, Question varchar, A varchar, B varchar, C varchar, D varchar, Answer varchar)";
-                cmd.ExecuteNonQuery();
+                SqliteSystem.NewDbFile(dbQAFile);
+                
+                SQLiteConnection sqliteConn = new SQLiteConnection("data source=" + dbQAFile);
+                if (sqliteConn.State != System.Data.ConnectionState.Open)
+                {
+                    sqliteConn.Open();
+                    SQLiteCommand cmd = new SQLiteCommand();
+                    cmd.Connection = sqliteConn;
+                    cmd.CommandText = "CREATE TABLE " + "QA" +
+                                      "(ID int, Question varchar, A varchar, B varchar, C varchar, D varchar, Answer varchar)";
+                    cmd.ExecuteNonQuery();
+                }
+
+                sqliteConn.Close();
             }
-            sqliteConn.Close();
-            SqliteSystem sql = new SqliteSystem(dbPath);
+
             return 0;
         }
     }
